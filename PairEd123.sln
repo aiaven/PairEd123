@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37502.11 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PairedMobile", "PairEd123\PairedMobile.csproj", "{7C8B7EF8-8363-44EE-9875-69C3EA74C86A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PairedAPI", "PairedAPI\PairedAPI.csproj", "{AF08510C-FC69-422E-8087-D497946D63E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C8B7EF8-8363-44EE-9875-69C3EA74C86A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C8B7EF8-8363-44EE-9875-69C3EA74C86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C8B7EF8-8363-44EE-9875-69C3EA74C86A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7C8B7EF8-8363-44EE-9875-69C3EA74C86A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C8B7EF8-8363-44EE-9875-69C3EA74C86A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C8B7EF8-8363-44EE-9875-69C3EA74C86A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AF08510C-FC69-422E-8087-D497946D63E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF08510C-FC69-422E-8087-D497946D63E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF08510C-FC69-422E-8087-D497946D63E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF08510C-FC69-422E-8087-D497946D63E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B1482DD5-81EB-409C-A225-7960291D2E7E}
+	EndGlobalSection
+EndGlobal
