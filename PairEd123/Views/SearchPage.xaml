@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PairEd123.Views.SearchPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:PairEd123.Models"
+    x:Name="RootPage"
+    Title="Find a Tutor">
+    <VerticalStackLayout Padding="20" Spacing="12">
+        <Entry Placeholder="Search by name or subject" Text="{Binding QueryText}" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <Label Text="{Binding StatusMessage}" TextColor="Red" />
+        <CollectionView ItemsSource="{Binding Results}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TutorSearchResult">
+                    <Frame Padding="14" CornerRadius="12" BorderColor="LightGray" HasShadow="True">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.GoToTutorDetailCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding DisplayName}" FontAttributes="Bold" FontSize="18" />
+                            <Label FontSize="14" TextColor="Gray">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Specializes in: " FontAttributes="Bold" />
+                                        <Span Text="{Binding Skills}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

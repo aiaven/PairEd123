@@ -1,12 +1,71 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PairEd123.Views.RequestsPage"
-             Title="RequestsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PairEd123.Views.RequestsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:PairEd123.Models"
+    x:Name="RootPage"
+    Title="Requests">
+    <VerticalStackLayout Padding="16" Spacing="10">
+
+        <HorizontalStackLayout Spacing="10" IsVisible="{Binding IsTutor}">
+            <Button Text="My Requests" Command="{Binding ShowSentTabCommand}" />
+            <Button Text="Incoming" Command="{Binding ShowIncomingTabCommand}" />
+        </HorizontalStackLayout>
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <Label Text="{Binding StatusMessage}" TextColor="Red" />
+
+        <CollectionView ItemsSource="{Binding SentRequests}" IsVisible="{Binding IsSentTabActive}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:RequestDisplay">
+                    <Frame Padding="12" Margin="0,4" CornerRadius="10" HasShadow="False" BorderColor="LightGray">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding OtherPartyName}" FontAttributes="Bold" />
+                            <Label Text="{Binding Subject}" />
+                            <Label Text="{Binding PreferredDate, StringFormat='{0:MMM d, yyyy h:mm tt}'}" FontSize="12" TextColor="Gray" />
+                            <Label Text="{Binding Status}" FontSize="12" FontAttributes="Bold" />
+                            <Label Text="{Binding RejectionReason, StringFormat='Reason: {0}'}" TextColor="Red" FontSize="12" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView ItemsSource="{Binding IncomingRequests}" IsVisible="{Binding IsIncomingTabActive}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:RequestDisplay">
+                    <Frame Padding="12" Margin="0,4" CornerRadius="10" HasShadow="False" BorderColor="LightGray">
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="{Binding OtherPartyName}" FontAttributes="Bold" />
+                            <Label Text="{Binding Subject}" />
+                            <Label Text="{Binding PreferredDate, StringFormat='{0:MMM d, yyyy h:mm tt}'}" FontSize="12" TextColor="Gray" />
+                            <Label Text="{Binding Status}" FontSize="12" FontAttributes="Bold" />
+
+                            <HorizontalStackLayout Spacing="10">
+                                <Button Text="Accept"
+                                        Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.AcceptCommand}"
+                                        CommandParameter="{Binding .}" />
+                                <Button Text="Decline"
+                                        Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.StartDeclineCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Frame IsVisible="{Binding IsDeclinePromptVisible}" Padding="14" CornerRadius="10" BackgroundColor="#FFF3F3">
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Reason for declining" FontAttributes="Bold" />
+                <Entry Placeholder="Explain why you're declining" Text="{Binding DeclineReasonText}" />
+                <HorizontalStackLayout Spacing="10">
+                    <Button Text="Confirm Decline" Command="{Binding ConfirmDeclineCommand}" />
+                    <Button Text="Cancel" Command="{Binding CancelDeclineCommand}" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Frame>
+
     </VerticalStackLayout>
 </ContentPage>

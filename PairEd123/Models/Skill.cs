@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace PairEd123.Models
 {
-    internal class Request
+    public class Skill
     {
+        public int SkillId { get; set; }
+        public string SkillName { get; set; } = string.Empty;
     }
 }

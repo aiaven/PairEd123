@@ -2,10 +2,10 @@ using PairEd123.ViewModels;
 
 namespace PairEd123.Views
 {
-    public partial class SessionsPage : ContentPage
+    public partial class AdminFeedbackPage : ContentPage
     {
-        private readonly SessionsViewModel _vm;
-        public SessionsPage(SessionsViewModel vm)
+        private readonly AdminFeedbackViewModel _vm;
+        public AdminFeedbackPage(AdminFeedbackViewModel vm)
         {
             InitializeComponent();
             _vm = vm;

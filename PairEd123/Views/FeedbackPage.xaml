@@ -1,12 +1,87 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PairEd123.Views.FeedbackPage"
-             Title="FeedbackPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PairEd123.Views.FeedbackPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:PairEd123.Models"
+    x:Name="RootPage"
+    Title="Feedback">
+    <VerticalStackLayout Padding="16" Spacing="10">
+
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="To Review" Command="{Binding ShowToReviewTabCommand}" />
+            <Button Text="Given" Command="{Binding ShowGivenTabCommand}" />
+            <Button Text="Received" Command="{Binding ShowReceivedTabCommand}" />
+        </HorizontalStackLayout>
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <Label Text="{Binding StatusMessage}" TextColor="Red" />
+
+        <CollectionView ItemsSource="{Binding SessionsToReview}" IsVisible="{Binding IsToReviewTabActive}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:SessionToReview">
+                    <Frame Padding="12" Margin="0,4" CornerRadius="10" HasShadow="False" BorderColor="LightGray">
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="{Binding OtherPartyName}" FontAttributes="Bold" />
+                            <Label Text="{Binding Subject}" />
+                            <Label Text="{Binding ScheduledTime, StringFormat='{0:MMM d, yyyy h:mm tt}'}" FontSize="12" TextColor="Gray" />
+                            <Button Text="Leave Feedback"
+                                    Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.StartReviewCommand}"
+                                    CommandParameter="{Binding .}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView ItemsSource="{Binding GivenFeedback}" IsVisible="{Binding IsGivenTabActive}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:FeedbackDisplay">
+                    <Frame Padding="12" Margin="0,4" CornerRadius="10" HasShadow="False" BorderColor="LightGray">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding OtherPartyName}" FontAttributes="Bold" />
+                            <Label Text="{Binding Subject}" FontSize="12" TextColor="Gray" />
+                            <Label Text="{Binding Rating, StringFormat='Rating: {0}/5'}" />
+                            <Label Text="{Binding Comment}" FontSize="12" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView ItemsSource="{Binding ReceivedFeedback}" IsVisible="{Binding IsReceivedTabActive}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:FeedbackDisplay">
+                    <Frame Padding="12" Margin="0,4" CornerRadius="10" HasShadow="False" BorderColor="LightGray">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding OtherPartyName}" FontAttributes="Bold" />
+                            <Label Text="{Binding Subject}" FontSize="12" TextColor="Gray" />
+                            <Label Text="{Binding Rating, StringFormat='Rating: {0}/5'}" />
+                            <Label Text="{Binding Comment}" FontSize="12" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Frame IsVisible="{Binding IsReviewPromptVisible}" Padding="14" CornerRadius="10" BackgroundColor="#F3F6FF">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Rate this session" FontAttributes="Bold" />
+                <HorizontalStackLayout Spacing="6">
+                    <Button Text="1" CommandParameter="1" Command="{Binding SetRatingCommand}" />
+                    <Button Text="2" CommandParameter="2" Command="{Binding SetRatingCommand}" />
+                    <Button Text="3" CommandParameter="3" Command="{Binding SetRatingCommand}" />
+                    <Button Text="4" CommandParameter="4" Command="{Binding SetRatingCommand}" />
+                    <Button Text="5" CommandParameter="5" Command="{Binding SetRatingCommand}" />
+                </HorizontalStackLayout>
+                <Label Text="{Binding SelectedRating, StringFormat='Selected: {0}/5'}" />
+                <Entry Placeholder="Optional comment" Text="{Binding ReviewCommentText}" />
+                <HorizontalStackLayout Spacing="10">
+                    <Button Text="Submit" Command="{Binding ConfirmReviewCommand}" />
+                    <Button Text="Cancel" Command="{Binding CancelReviewCommand}" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Frame>
+
     </VerticalStackLayout>
 </ContentPage>

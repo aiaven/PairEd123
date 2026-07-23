@@ -1,0 +1,18 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PairEd123.Views.UserDashboardPage"
+             Title="Dashboard">
+    <VerticalStackLayout Padding="24" Spacing="16" VerticalOptions="Center">
+        <Image Source="{Binding ProfilePicturePath}" HeightRequest="80" WidthRequest="80"
+               Aspect="AspectFill" HorizontalOptions="Center" />
+        <Label Text="{Binding Greeting}" FontSize="22" HorizontalOptions="Center" />
+        <Label Text="{Binding RoleLabel}" FontSize="14" TextColor="Gray" HorizontalOptions="Center" />
+        <Button Text="My Profile" Command="{Binding GoToProfileCommand}" />
+        <Button Text="Find a Tutor" Command="{Binding GoToSearchCommand}" />
+        <Button Text="My Requests" Command="{Binding GoToRequestsCommand}" />
+        <Button Text="My Sessions" Command="{Binding GoToSessionsCommand}" />
+        <Button Text="Feedback" Command="{Binding GoToFeedbackCommand}" />
+        <Button Text="Log Out" Command="{Binding LogoutCommand}"
+                BackgroundColor="Transparent" TextColor="Red" />
+    </VerticalStackLayout>
+</ContentPage>

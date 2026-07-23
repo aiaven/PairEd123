@@ -1,9 +1,20 @@
-namespace PairEd123.Views;
+using PairEd123.ViewModels;
 
-public partial class RequestsPage : ContentPage
+namespace PairEd123.Views
 {
-	public RequestsPage()
-	{
-		InitializeComponent();
-	}
+    public partial class RequestsPage : ContentPage
+    {
+        private readonly RequestsViewModel _vm;
+        public RequestsPage(RequestsViewModel vm)
+        {
+            InitializeComponent();
+            _vm = vm;
+            BindingContext = vm;
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await _vm.LoadAsync();
+        }
+    }
 }

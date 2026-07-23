@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PairEd123.Views.AdminSkillsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:PairEd123.Models"
+    Title="Manage Skills">
+    <VerticalStackLayout Padding="20" Spacing="12">
+        <Entry Placeholder="New skill name (e.g. Chemistry)" Text="{Binding NewSkillName}" />
+        <Button Text="Add Skill" Command="{Binding AddSkillCommand}" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <Label Text="{Binding StatusMessage}" TextColor="Red" />
+
+        <CollectionView ItemsSource="{Binding Skills}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Skill">
+                    <Grid Padding="8" ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0" Text="{Binding SkillName}" VerticalOptions="Center" />
+                        <Button Grid.Column="1" Text="Delete"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteSkillCommand}"
+                                CommandParameter="{Binding .}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

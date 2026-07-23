@@ -1,9 +1,20 @@
-namespace PairEd123.Views;
+using PairEd123.ViewModels;
 
-public partial class FeedbackPage : ContentPage
+namespace PairEd123.Views
 {
-	public FeedbackPage()
-	{
-		InitializeComponent();
-	}
+    public partial class FeedbackPage : ContentPage
+    {
+        private readonly FeedbackViewModel _vm;
+        public FeedbackPage(FeedbackViewModel vm)
+        {
+            InitializeComponent();
+            _vm = vm;
+            BindingContext = vm;
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await _vm.LoadAsync();
+        }
+    }
 }

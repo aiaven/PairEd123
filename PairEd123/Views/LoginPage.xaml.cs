@@ -1,9 +1,13 @@
-namespace PairEd123.Views;
+using PairEd123.ViewModels;
 
-public partial class LoginPage : ContentPage
+namespace PairEd123.Views
 {
-	public LoginPage()
-	{
-		InitializeComponent();
-	}
+    public partial class LoginPage : ContentPage
+    {
+        public LoginPage(AuthViewModel vm)
+        {
+            InitializeComponent();
+            BindingContext = vm;
+        }
+    }
 }

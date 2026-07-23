@@ -2,22 +2,21 @@ using PairEd123.ViewModels;
 
 namespace PairEd123.Views
 {
-    public partial class ProfilePage : ContentPage
+    public partial class AdminDashboardPage : ContentPage
     {
-        private readonly ProfileViewModel _vm;
+        private readonly AdminDashboardViewModel _vm;
 
-        public ProfilePage(ProfileViewModel vm)
+        public AdminDashboardPage(AdminDashboardViewModel vm)
         {
             InitializeComponent();
             _vm = vm;
             BindingContext = vm;
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             _vm.LoadCurrentUser();
-            await _vm.LoadSkillsAsync();
         }
     }
 }

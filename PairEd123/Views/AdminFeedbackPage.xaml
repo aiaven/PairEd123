@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PairEd123.Views.AdminFeedbackPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:PairEd123.Models"
+    Title="All Feedback">
+    <VerticalStackLayout Padding="20" Spacing="12">
+        <Entry Placeholder="Search by tutor or student name" Text="{Binding QueryText}" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <Label Text="{Binding StatusMessage}" TextColor="Red" />
+        <CollectionView ItemsSource="{Binding Results}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:FeedbackDisplay">
+                    <Frame Padding="14" CornerRadius="12" BorderColor="LightGray" HasShadow="True">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding OtherPartyName}" FontAttributes="Bold" />
+                            <Label Text="{Binding Subject}" FontSize="12" TextColor="Gray" />
+                            <Label Text="{Binding Rating, StringFormat='Rating: {0}/5'}" />
+                            <Label Text="{Binding Comment}" FontSize="12" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

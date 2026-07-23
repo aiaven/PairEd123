@@ -1,12 +1,54 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PairEd123.Views.ProfilePage"
-             Title="ProfilePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Name="RootPage"
+             Title="Profile">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="12" VerticalOptions="Center">
+            <Grid HeightRequest="120" WidthRequest="120" HorizontalOptions="Center">
+                <Image Source="default_avatar.svg" HeightRequest="120" WidthRequest="120" Aspect="AspectFill" />
+                <Image Source="{Binding ProfilePicturePath}" HeightRequest="120" WidthRequest="120"
+           Aspect="AspectFill" IsVisible="{Binding HasCustomPhoto}" />
+            </Grid>
+            <Button Text="Change Photo" Command="{Binding PickPhotoCommand}" />
+            <Label Text="{Binding Email}" FontAttributes="Bold" HorizontalOptions="Center" />
+            <Entry Placeholder="Display Name" Text="{Binding DisplayName}" />
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                <Label Text="Available as a Tutor" VerticalOptions="Center" />
+                <Switch IsToggled="{Binding IsTutor}" />
+            </HorizontalStackLayout>
+            <Editor Placeholder="Tell others a bit about yourself..."
+        Text="{Binding Bio}"
+        HeightRequest="100"
+        AutoSize="TextChanges" />
+            <Entry Placeholder="Enter Your Availability"
+                   Text="{Binding Availability}"
+                   IsVisible="{Binding IsTutor}" />
+            
+
+            <Label Text="Your Skills" FontAttributes="Bold" IsVisible="{Binding IsTutor}" />
+            <CollectionView ItemsSource="{Binding Skills}" IsVisible="{Binding IsTutor}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10,6" Margin="0,2" CornerRadius="8" HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.ToggleSkillCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="8">
+                                <Label Text="✓" IsVisible="{Binding IsSelected}" TextColor="Green" FontAttributes="Bold" />
+                                <Label Text="{Binding SkillName}" />
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ActivityIndicator IsRunning="{Binding IsSkillsBusy}" IsVisible="{Binding IsSkillsBusy}" />
+
+            <Button Text="Save" Command="{Binding SaveCommand}" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+            <Label Text="{Binding StatusMessage}" TextColor="Red" HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

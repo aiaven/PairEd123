@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PairEd123.Views.TutorDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Title="Tutor Profile">
+    <VerticalStackLayout Padding="24" Spacing="14">
+        <Label Text="{Binding TutorName}" FontSize="22" FontAttributes="Bold" />
+        <Label Text="Skill" FontAttributes="Bold" />
+        <Picker ItemsSource="{Binding SkillNames}" SelectedItem="{Binding SelectedSkill}" />
+        <Label Text="Preferred Date" FontAttributes="Bold" />
+        <DatePicker Date="{Binding PreferredDate}" MinimumDate="{x:Static sys:DateTime.Today}" />
+        <Label Text="Preferred Time" FontAttributes="Bold" />
+        <TimePicker Time="{Binding PreferredTime}" />
+        <Button Text="Send Request" Command="{Binding SendRequestCommand}" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <Label Text="{Binding StatusMessage}" TextColor="Red" HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
+    

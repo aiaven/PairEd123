@@ -1,12 +1,17 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PairEd123.Views.RegisterPage"
-             Title="RegisterPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="Register">
+    <VerticalStackLayout Padding="24" Spacing="12" VerticalOptions="Center">
+        <Label Text="Create Account" FontSize="24" HorizontalOptions="Center" />
+        <Entry Placeholder="Username" Text="{Binding DisplayName}" />
+        <Entry Placeholder="Email" Text="{Binding EmailAddress}" Keyboard="Email" />
+        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
+        <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}" />
+        <Button Text="Register" Command="{Binding RegisterCommand}" />
+        <Button Text="Already have an account? Log In" Command="{Binding GoToLoginCommand}"
+                BackgroundColor="Transparent" TextColor="Blue" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <Label Text="{Binding StatusMessage}" TextColor="Red" HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>
