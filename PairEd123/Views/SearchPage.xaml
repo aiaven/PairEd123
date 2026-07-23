@@ -8,88 +8,82 @@
     Title="Search"
     BackgroundColor="#F8FAFC">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="24" Spacing="16">
+    <Grid RowDefinitions="Auto, Auto, Auto, *" Padding="24" RowSpacing="16">
 
-            <!-- Search Bar -->
-            <Frame BackgroundColor="#FFFFFF"
-                   BorderColor="#E2E8F0"
-                   CornerRadius="12"
-                   Padding="12"
-                   HasShadow="True">
-                <Entry x:Name="SearchEntry"
-                       Placeholder="Search tutors, subjects, or sessions..."
-                       Text="{Binding QueryText}"
-                       FontFamily="Segoe UI"
-                       TextColor="#0E1626"
-                       PlaceholderColor="#64748B"/>
-            </Frame>
-
-            <!-- Loading Indicator -->
-            <ActivityIndicator IsRunning="{Binding IsBusy}"
-                               IsVisible="{Binding IsBusy}"
-                               Color="#D8121B"/>
-
-            <!-- Status Message -->
-            <Label Text="{Binding StatusMessage}"
+        <Frame Grid.Row="0"
+               BackgroundColor="#FFFFFF"
+               BorderColor="#E2E8F0"
+               CornerRadius="12"
+               Padding="12"
+               HasShadow="True">
+            <Entry x:Name="SearchEntry"
+                   Placeholder="Search tutors, subjects, or sessions..."
+                   Text="{Binding QueryText}"
                    FontFamily="Segoe UI"
-                   TextColor="#D8121B"
-                   FontSize="14"
-                   HorizontalOptions="Center"/>
+                   TextColor="#0E1626"
+                   PlaceholderColor="#64748B"/>
+        </Frame>
 
-            <!-- Search Results -->
-            <CollectionView ItemsSource="{Binding SearchResults}">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="14"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:SearchResultDisplay">
-                        <Frame BackgroundColor="#FFFFFF"
-                               BorderColor="#E2E8F0"
-                               CornerRadius="12"
-                               Padding="16"
-                               HasShadow="True"
-                               Margin="0,6">
-                            <VerticalStackLayout Spacing="6">
-                                <Label Text="{Binding Name}"
-                                       FontFamily="Segoe UI"
-                                       FontSize="16"
-                                       FontAttributes="Bold"
-                                       TextColor="#0E1626"/>
-                                <Label Text="{Binding Subject}"
-                                       FontFamily="Segoe UI"
-                                       FontSize="14"
-                                       TextColor="#64748B"/>
-                                <Label Text="{Binding Availability}"
-                                       FontFamily="Segoe UI"
-                                       FontSize="12"
-                                       TextColor="#64748B"/>
-                                <HorizontalStackLayout Spacing="12">
-                                    <Button Text="Request"
-                                            Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.RequestCommand}"
-                                            CommandParameter="{Binding .}"
-                                            BackgroundColor="#D8121B"
-                                            TextColor="#FFFFFF"
-                                            CornerRadius="20"
-                                            FontFamily="Segoe UI"
-                                            FontAttributes="Bold"
-                                            HeightRequest="36"/>
-                                    <Button Text="Message"
-                                            Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.MessageCommand}"
-                                            CommandParameter="{Binding .}"
-                                            BackgroundColor="#0E1626"
-                                            TextColor="#FFFFFF"
-                                            CornerRadius="20"
-                                            FontFamily="Segoe UI"
-                                            FontAttributes="Bold"
-                                            HeightRequest="36"/>
-                                </HorizontalStackLayout>
-                            </VerticalStackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+        <ActivityIndicator Grid.Row="1"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           Color="#D8121B"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
+        <Label Grid.Row="2"
+               Text="{Binding StatusMessage}"
+               FontFamily="Segoe UI"
+               TextColor="#D8121B"
+               FontSize="14"
+               HorizontalOptions="Center"/>
+
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Results}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="14"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TutorSearchResult">
+                    <Frame BackgroundColor="#FFFFFF"
+                           BorderColor="#E2E8F0"
+                           CornerRadius="12"
+                           Padding="16"
+                           HasShadow="True"
+                           Margin="0,6">
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="{Binding DisplayName}"
+                                   FontFamily="Segoe UI"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#0E1626"/>
+
+                            <Label Text="{Binding Skills}"
+                                   FontFamily="Segoe UI"
+                                   FontSize="14"
+                                   TextColor="#64748B"/>
+
+                            <HorizontalStackLayout Spacing="12" Margin="0,8,0,0">
+                                <Button Text="Request"
+            Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.GoToTutorDetailCommand}"
+            CommandParameter="{Binding .}"
+            BackgroundColor="#D8121B"
+            TextColor="#FFFFFF"
+            CornerRadius="20"
+            FontFamily="Segoe UI"
+            FontAttributes="Bold"
+            HeightRequest="36"/>
+
+                                <Button Text="Message"
+            BackgroundColor="#0E1626"
+            TextColor="#FFFFFF"
+            CornerRadius="20"
+            FontFamily="Segoe UI"
+            FontAttributes="Bold"
+            HeightRequest="36"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
 </ContentPage>

@@ -16,7 +16,11 @@ namespace PairEd123.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await _viewModel.LoadAllTutorsAsync();
+
+            if (BindingContext is SearchViewModel vm)
+            {
+                await vm.LoadAllTutorsAsync();
+            }
         }
     }
 }
