@@ -4,27 +4,82 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="clr-namespace:PairEd123.Models"
-    Title="All Feedback">
-    <VerticalStackLayout Padding="20" Spacing="12">
-        <Entry Placeholder="Search by tutor or student name" Text="{Binding QueryText}" />
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-        <Label Text="{Binding StatusMessage}" TextColor="Red" />
-        <CollectionView ItemsSource="{Binding Results}">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:FeedbackDisplay">
-                    <Frame Padding="14" CornerRadius="12" BorderColor="LightGray" HasShadow="True">
-                        <VerticalStackLayout Spacing="4">
-                            <Label Text="{Binding OtherPartyName}" FontAttributes="Bold" />
-                            <Label Text="{Binding Subject}" FontSize="12" TextColor="Gray" />
-                            <Label Text="{Binding Rating, StringFormat='Rating: {0}/5'}" />
-                            <Label Text="{Binding Comment}" FontSize="12" />
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+    Title="All Feedback"
+    BackgroundColor="#F8FAFC">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
+
+            <!-- Search Entry -->
+            <Frame BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <Entry x:Name="SearchEntry"
+                       Placeholder="Search by tutor or student name"
+                       Text="{Binding QueryText}"
+                       FontFamily="Segoe UI"
+                       TextColor="#0E1626"
+                       PlaceholderColor="#64748B"/>
+            </Frame>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="#D8121B"/>
+
+            <!-- Status Message -->
+            <Label Text="{Binding StatusMessage}"
+                   FontFamily="Segoe UI"
+                   TextColor="#D8121B"
+                   FontSize="14"
+                   HorizontalOptions="Center"/>
+
+            <!-- Feedback List -->
+            <CollectionView ItemsSource="{Binding Results}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="14"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:FeedbackDisplay">
+                        <Frame BackgroundColor="#FFFFFF"
+                               BorderColor="#E2E8F0"
+                               CornerRadius="12"
+                               Padding="16"
+                               HasShadow="True">
+                            <VerticalStackLayout Spacing="6">
+
+                                <!-- Tutor/Student Name -->
+                                <Label Text="{Binding OtherPartyName}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="#0E1626"/>
+
+                                <!-- Subject -->
+                                <Label Text="{Binding Subject}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="14"
+                                       TextColor="#64748B"/>
+
+                                <!-- Rating -->
+                                <Label Text="{Binding Rating, StringFormat='Rating: {0}/5'}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="14"
+                                       TextColor="#0E1626"/>
+
+                                <!-- Comment -->
+                                <Label Text="{Binding Comment}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="14"
+                                       TextColor="#0E1626"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

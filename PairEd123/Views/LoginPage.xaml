@@ -1,15 +1,102 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PairEd123.Views.LoginPage"
-             Title="Login">
-    <VerticalStackLayout Padding="24" Spacing="12" VerticalOptions="Center">
-        <Label Text="Log In" FontSize="24" HorizontalOptions="Center" />
-        <Entry Placeholder="Email" Text="{Binding EmailAddress}" Keyboard="Email" />
-        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
-        <Button Text="Log In" Command="{Binding LoginCommand}" />
-        <Button Text="Don't have an account? Register" Command="{Binding GoToRegisterCommand}"
-                BackgroundColor="Transparent" TextColor="Blue" />
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-        <Label Text="{Binding StatusMessage}" TextColor="Red" HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Login"
+             BackgroundColor="#F8FAFC">
+
+    <ScrollView>
+        <Grid Padding="32" RowSpacing="20" VerticalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Heading -->
+            <Label Grid.Row="0"
+                   Text="Log In"
+                   FontFamily="Segoe UI"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#0E1626"
+                   HorizontalOptions="Center"/>
+
+            <!-- Email Entry -->
+            <Frame Grid.Row="1"
+                   BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <Entry x:Name="EmailEntry"
+                       Placeholder="Email"
+                       Text="{Binding EmailAddress}"
+                       Keyboard="Email"
+                       FontFamily="Segoe UI"
+                       TextColor="#0E1626"
+                       PlaceholderColor="#64748B"/>
+            </Frame>
+
+            <!-- Password Entry -->
+            <Frame Grid.Row="2"
+                   BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <Entry x:Name="PasswordEntry"
+                       Placeholder="Password"
+                       IsPassword="True"
+                       Text="{Binding Password}"
+                       FontFamily="Segoe UI"
+                       TextColor="#0E1626"
+                       PlaceholderColor="#64748B"/>
+            </Frame>
+
+            <!-- Login Button -->
+            <Button Grid.Row="3"
+                    x:Name="LoginBtn"
+                    Text="Log In"
+                    Command="{Binding LoginCommand}"
+                    BackgroundColor="#D8121B"
+                    TextColor="#FFFFFF"
+                    CornerRadius="20"
+                    FontFamily="Segoe UI"
+                    FontAttributes="Bold"
+                    HeightRequest="48"/>
+
+            <!-- Register Button -->
+            <Button Grid.Row="4"
+                    x:Name="RegisterBtn"
+                    Text="Don't have an account? Register"
+                    Command="{Binding GoToRegisterCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="#0E1626"
+                    BorderColor="#0E1626"
+                    BorderWidth="2"
+                    CornerRadius="20"
+                    FontFamily="Segoe UI"
+                    FontAttributes="Bold"
+                    HeightRequest="44"/>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator Grid.Row="5"
+                               IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="#D8121B"
+                               HorizontalOptions="Center"/>
+
+            <!-- Status Message -->
+            <Label Grid.Row="6"
+                   Text="{Binding StatusMessage}"
+                   FontFamily="Segoe UI"
+                   TextColor="#D8121B"
+                   FontSize="14"
+                   HorizontalOptions="Center"/>
+        </Grid>
+    </ScrollView>
 </ContentPage>

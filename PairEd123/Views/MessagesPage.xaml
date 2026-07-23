@@ -1,12 +1,77 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PairEd123.Views.MessagesPage"
-             Title="MessagesPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PairEd123.Views.MessagesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:PairEd123.Models"
+    Title="Messages"
+    BackgroundColor="#F8FAFC">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="#D8121B"/>
+
+            <!-- Status Message -->
+            <Label Text="{Binding StatusMessage}"
+                   FontFamily="Segoe UI"
+                   TextColor="#0E1626"
+                   FontSize="14"
+                   HorizontalOptions="Center"/>
+
+            <!-- Messages List -->
+            <CollectionView ItemsSource="{Binding Users}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="14"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:User">
+                        <Frame BackgroundColor="#FFFFFF"
+                               BorderColor="#E2E8F0"
+                               CornerRadius="12"
+                               Padding="16"
+                               HasShadow="True"
+                               Margin="0,6">
+                            <VerticalStackLayout Spacing="8">
+
+                                <!-- Display Name -->
+                                <Label Text="{Binding DisplayName}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="#0E1626"/>
+
+                                <!-- Email -->
+                                <Label Text="{Binding Email}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="14"
+                                       TextColor="#64748B"/>
+
+                                <!-- Role Picker -->
+                                <Picker ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RoleOptions}"
+                                        SelectedItem="{Binding Role}"
+                                        FontFamily="Segoe UI"
+                                        TextColor="#0E1626"/>
+
+                                <!-- Save Role Button -->
+                                <Button Text="Save Role"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ChangeRoleCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="#D8121B"
+                                        TextColor="#FFFFFF"
+                                        CornerRadius="20"
+                                        FontFamily="Segoe UI"
+                                        FontAttributes="Bold"
+                                        HeightRequest="40"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

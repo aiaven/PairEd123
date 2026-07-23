@@ -2,53 +2,170 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PairEd123.Views.ProfilePage"
              x:Name="RootPage"
-             Title="Profile">
-    <ScrollView>
-        <VerticalStackLayout Padding="24" Spacing="12" VerticalOptions="Center">
-            <Grid HeightRequest="120" WidthRequest="120" HorizontalOptions="Center">
-                <Image Source="default_avatar.svg" HeightRequest="120" WidthRequest="120" Aspect="AspectFill" />
-                <Image Source="{Binding ProfilePicturePath}" HeightRequest="120" WidthRequest="120"
-           Aspect="AspectFill" IsVisible="{Binding HasCustomPhoto}" />
-            </Grid>
-            <Button Text="Change Photo" Command="{Binding PickPhotoCommand}" />
-            <Label Text="{Binding Email}" FontAttributes="Bold" HorizontalOptions="Center" />
-            <Entry Placeholder="Display Name" Text="{Binding DisplayName}" />
-            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
-                <Label Text="Available as a Tutor" VerticalOptions="Center" />
-                <Switch IsToggled="{Binding IsTutor}" />
-            </HorizontalStackLayout>
-            <Editor Placeholder="Tell others a bit about yourself..."
-        Text="{Binding Bio}"
-        HeightRequest="100"
-        AutoSize="TextChanges" />
-            <Entry Placeholder="Enter Your Availability"
-                   Text="{Binding Availability}"
-                   IsVisible="{Binding IsTutor}" />
-            
+             Title="Profile"
+             BackgroundColor="#F8FAFC">
 
-            <Label Text="Your Skills" FontAttributes="Bold" IsVisible="{Binding IsTutor}" />
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
+
+            <!-- Profile Picture -->
+            <Frame BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="60"
+                   WidthRequest="120"
+                   HeightRequest="120"
+                   HorizontalOptions="Center"
+                   HasShadow="True">
+                <Grid>
+                    <Image Source="default_avatar.svg"
+                           HeightRequest="120"
+                           WidthRequest="120"
+                           Aspect="AspectFill"/>
+                    <Image Source="{Binding ProfilePicturePath}"
+                           HeightRequest="120"
+                           WidthRequest="120"
+                           Aspect="AspectFill"
+                           IsVisible="{Binding HasCustomPhoto}"/>
+                </Grid>
+            </Frame>
+
+            <!-- Change Photo Button -->
+            <Button x:Name="ChangePhotoBtn"
+                    Text="Change Photo"
+                    Command="{Binding PickPhotoCommand}"
+                    BackgroundColor="#0E1626"
+                    TextColor="#FFFFFF"
+                    CornerRadius="20"
+                    FontFamily="Segoe UI"
+                    FontAttributes="Bold"
+                    HeightRequest="44"/>
+
+            <!-- Email -->
+            <Label Text="{Binding Email}"
+                   FontFamily="Segoe UI"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="#0E1626"
+                   HorizontalOptions="Center"/>
+
+            <!-- Display Name -->
+            <Frame BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <Entry x:Name="DisplayNameEntry"
+                       Placeholder="Display Name"
+                       Text="{Binding DisplayName}"
+                       FontFamily="Segoe UI"
+                       TextColor="#0E1626"
+                       PlaceholderColor="#64748B"/>
+            </Frame>
+
+            <!-- Tutor Availability Toggle -->
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                <Label Text="Available as a Tutor"
+                       FontFamily="Segoe UI"
+                       FontSize="14"
+                       TextColor="#0E1626"
+                       VerticalOptions="Center"/>
+                <Switch IsToggled="{Binding IsTutor}"/>
+            </HorizontalStackLayout>
+
+            <!-- Bio -->
+            <Frame BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <Editor x:Name="BioEditor"
+                        Placeholder="Tell others a bit about yourself..."
+                        Text="{Binding Bio}"
+                        HeightRequest="100"
+                        AutoSize="TextChanges"
+                        FontFamily="Segoe UI"
+                        TextColor="#0E1626"
+                        PlaceholderColor="#64748B"/>
+            </Frame>
+
+            <!-- Availability -->
+            <Frame BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True"
+                   IsVisible="{Binding IsTutor}">
+                <Entry x:Name="AvailabilityEntry"
+                       Placeholder="Enter Your Availability"
+                       Text="{Binding Availability}"
+                       FontFamily="Segoe UI"
+                       TextColor="#0E1626"
+                       PlaceholderColor="#64748B"/>
+            </Frame>
+
+            <!-- Skills -->
+            <Label Text="Your Skills"
+                   FontFamily="Segoe UI"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="#0E1626"
+                   IsVisible="{Binding IsTutor}"/>
+
             <CollectionView ItemsSource="{Binding Skills}" IsVisible="{Binding IsTutor}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Padding="10,6" Margin="0,2" CornerRadius="8" HasShadow="False">
+                        <Frame BackgroundColor="#FFFFFF"
+                               BorderColor="#E2E8F0"
+                               CornerRadius="12"
+                               Padding="10,6"
+                               HasShadow="True"
+                               Margin="0,4">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer
                                     Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.ToggleSkillCommand}"
-                                    CommandParameter="{Binding .}" />
+                                    CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
                             <HorizontalStackLayout Spacing="8">
-                                <Label Text="✓" IsVisible="{Binding IsSelected}" TextColor="Green" FontAttributes="Bold" />
-                                <Label Text="{Binding SkillName}" />
+                                <Label Text="✓"
+                                       IsVisible="{Binding IsSelected}"
+                                       TextColor="#D8121B"
+                                       FontAttributes="Bold"/>
+                                <Label Text="{Binding SkillName}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="14"
+                                       TextColor="#0E1626"/>
                             </HorizontalStackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <ActivityIndicator IsRunning="{Binding IsSkillsBusy}" IsVisible="{Binding IsSkillsBusy}" />
 
-            <Button Text="Save" Command="{Binding SaveCommand}" />
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-            <Label Text="{Binding StatusMessage}" TextColor="Red" HorizontalOptions="Center" />
+            <ActivityIndicator IsRunning="{Binding IsSkillsBusy}"
+                               IsVisible="{Binding IsSkillsBusy}"
+                               Color="#D8121B"/>
+
+            <!-- Save Button -->
+            <Button x:Name="SaveBtn"
+                    Text="Save"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="#D8121B"
+                    TextColor="#FFFFFF"
+                    CornerRadius="20"
+                    FontFamily="Segoe UI"
+                    FontAttributes="Bold"
+                    HeightRequest="48"/>
+
+            <!-- Busy Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="#D8121B"/>
+
+            <!-- Status Message -->
+            <Label Text="{Binding StatusMessage}"
+                   FontFamily="Segoe UI"
+                   TextColor="#D8121B"
+                   FontSize="14"
+                   HorizontalOptions="Center"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -1,17 +1,134 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PairEd123.Views.RegisterPage"
-             Title="Register">
-    <VerticalStackLayout Padding="24" Spacing="12" VerticalOptions="Center">
-        <Label Text="Create Account" FontSize="24" HorizontalOptions="Center" />
-        <Entry Placeholder="Username" Text="{Binding DisplayName}" />
-        <Entry Placeholder="Email" Text="{Binding EmailAddress}" Keyboard="Email" />
-        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
-        <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}" />
-        <Button Text="Register" Command="{Binding RegisterCommand}" />
-        <Button Text="Already have an account? Log In" Command="{Binding GoToLoginCommand}"
-                BackgroundColor="Transparent" TextColor="Blue" />
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-        <Label Text="{Binding StatusMessage}" TextColor="Red" HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Register"
+             BackgroundColor="#F8FAFC">
+
+    <ScrollView>
+        <Grid Padding="32" RowSpacing="20" VerticalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Heading -->
+            <Label Grid.Row="0"
+                   Text="Create Account"
+                   FontFamily="Segoe UI"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#0E1626"
+                   HorizontalOptions="Center"/>
+
+            <!-- Username Entry -->
+            <Frame Grid.Row="1"
+                   BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <Entry x:Name="UsernameEntry"
+                       Placeholder="Username"
+                       Text="{Binding DisplayName}"
+                       FontFamily="Segoe UI"
+                       TextColor="#0E1626"
+                       PlaceholderColor="#64748B"/>
+            </Frame>
+
+            <!-- Email Entry -->
+            <Frame Grid.Row="2"
+                   BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <Entry x:Name="EmailEntry"
+                       Placeholder="Email"
+                       Text="{Binding EmailAddress}"
+                       Keyboard="Email"
+                       FontFamily="Segoe UI"
+                       TextColor="#0E1626"
+                       PlaceholderColor="#64748B"/>
+            </Frame>
+
+            <!-- Password Entry -->
+            <Frame Grid.Row="3"
+                   BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <Entry x:Name="PasswordEntry"
+                       Placeholder="Password"
+                       IsPassword="True"
+                       Text="{Binding Password}"
+                       FontFamily="Segoe UI"
+                       TextColor="#0E1626"
+                       PlaceholderColor="#64748B"/>
+            </Frame>
+
+            <!-- Confirm Password Entry -->
+            <Frame Grid.Row="4"
+                   BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <Entry x:Name="ConfirmPasswordEntry"
+                       Placeholder="Confirm Password"
+                       IsPassword="True"
+                       Text="{Binding ConfirmPassword}"
+                       FontFamily="Segoe UI"
+                       TextColor="#0E1626"
+                       PlaceholderColor="#64748B"/>
+            </Frame>
+
+            <!-- Register Button -->
+            <Button Grid.Row="5"
+                    x:Name="RegisterBtn"
+                    Text="Register"
+                    Command="{Binding RegisterCommand}"
+                    BackgroundColor="#D8121B"
+                    TextColor="#FFFFFF"
+                    CornerRadius="20"
+                    FontFamily="Segoe UI"
+                    FontAttributes="Bold"
+                    HeightRequest="48"/>
+
+            <!-- Login Redirect Button -->
+            <Button Grid.Row="6"
+                    x:Name="GoToLoginBtn"
+                    Text="Already have an account? Log In"
+                    Command="{Binding GoToLoginCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="#0E1626"
+                    BorderColor="#0E1626"
+                    BorderWidth="2"
+                    CornerRadius="20"
+                    FontFamily="Segoe UI"
+                    FontAttributes="Bold"
+                    HeightRequest="44"/>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator Grid.Row="7"
+                               IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="#D8121B"
+                               HorizontalOptions="Center"/>
+
+            <!-- Status Message -->
+            <Label Grid.Row="8"
+                   Text="{Binding StatusMessage}"
+                   FontFamily="Segoe UI"
+                   TextColor="#D8121B"
+                   FontSize="14"
+                   HorizontalOptions="Center"/>
+        </Grid>
+    </ScrollView>
 </ContentPage>

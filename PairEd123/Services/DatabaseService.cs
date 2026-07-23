@@ -17,7 +17,7 @@ namespace PairEd123.Services
                 ? "10.0.2.2"
                 : "localhost";
 
-            return $"Server={server};Database=paired_db;User ID=root;Password=Coding#01;Connection Timeout=10;";
+            return $"Server={server};Database=paired_db;User ID=root;Password=paireduser;Connection Timeout=10;";
         }
 
         public async Task<MySqlConnection> GetOpenConnectionAsync()

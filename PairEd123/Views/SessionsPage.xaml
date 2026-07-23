@@ -5,83 +5,231 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="clr-namespace:PairEd123.Models"
     x:Name="RootPage"
-    Title="Sessions">
-    <VerticalStackLayout Padding="16" Spacing="10">
+    Title="Sessions"
+    BackgroundColor="#F8FAFC">
 
-        <HorizontalStackLayout Spacing="10">
-            <Button Text="Upcoming" Command="{Binding ShowUpcomingTabCommand}" />
-            <Button Text="Completed" Command="{Binding ShowCompletedTabCommand}" />
-            <Button Text="Cancelled" Command="{Binding ShowCancelledTabCommand}" />
-        </HorizontalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
 
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-        <Label Text="{Binding StatusMessage}" TextColor="Red" />
+            <!-- Tab Buttons -->
+            <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                <Button Text="Upcoming"
+                        Command="{Binding ShowUpcomingTabCommand}"
+                        BackgroundColor="#D8121B"
+                        TextColor="#FFFFFF"
+                        CornerRadius="20"
+                        FontFamily="Segoe UI"
+                        FontAttributes="Bold"
+                        HeightRequest="40"/>
+                <Button Text="Completed"
+                        Command="{Binding ShowCompletedTabCommand}"
+                        BackgroundColor="#0E1626"
+                        TextColor="#FFFFFF"
+                        CornerRadius="20"
+                        FontFamily="Segoe UI"
+                        FontAttributes="Bold"
+                        HeightRequest="40"/>
+                <Button Text="Cancelled"
+                        Command="{Binding ShowCancelledTabCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="#D8121B"
+                        BorderColor="#D8121B"
+                        BorderWidth="2"
+                        CornerRadius="20"
+                        FontFamily="Segoe UI"
+                        FontAttributes="Bold"
+                        HeightRequest="40"/>
+            </HorizontalStackLayout>
 
-        <CollectionView ItemsSource="{Binding UpcomingSessions}" IsVisible="{Binding IsUpcomingTabActive}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:SessionDisplay">
-                    <Frame Padding="12" Margin="0,4" CornerRadius="10" HasShadow="False" BorderColor="LightGray">
-                        <VerticalStackLayout Spacing="6">
-                            <Label Text="{Binding OtherPartyName}" FontAttributes="Bold" />
-                            <Label Text="{Binding Subject}" />
-                            <Label Text="{Binding ScheduledTime, StringFormat='{0:MMM d, yyyy h:mm tt}'}" FontSize="12" TextColor="Gray" />
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="#D8121B"/>
 
-                            <HorizontalStackLayout Spacing="10">
-                                <Button Text="Mark Complete"
-                                        IsVisible="{Binding IsTutorView}"
-                                        Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.CompleteCommand}"
-                                        CommandParameter="{Binding .}" />
-                                <Button Text="Cancel"
-                                        Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.StartCancelCommand}"
-                                        CommandParameter="{Binding .}" />
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <!-- Status Message -->
+            <Label Text="{Binding StatusMessage}"
+                   FontFamily="Segoe UI"
+                   TextColor="#D8121B"
+                   FontSize="14"
+                   HorizontalOptions="Center"/>
 
-        <CollectionView ItemsSource="{Binding CompletedSessions}" IsVisible="{Binding IsCompletedTabActive}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:SessionDisplay">
-                    <Frame Padding="12" Margin="0,4" CornerRadius="10" HasShadow="False" BorderColor="LightGray">
-                        <VerticalStackLayout Spacing="4">
-                            <Label Text="{Binding OtherPartyName}" FontAttributes="Bold" />
-                            <Label Text="{Binding Subject}" />
-                            <Label Text="{Binding ScheduledTime, StringFormat='{0:MMM d, yyyy h:mm tt}'}" FontSize="12" TextColor="Gray" />
-                            <Label Text="Completed" FontSize="12" FontAttributes="Bold" TextColor="Green" />
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <!-- Upcoming Sessions -->
+            <CollectionView ItemsSource="{Binding UpcomingSessions}" IsVisible="{Binding IsUpcomingTabActive}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="14"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:SessionDisplay">
+                        <Frame BackgroundColor="#FFFFFF"
+                               BorderColor="#E2E8F0"
+                               CornerRadius="12"
+                               Padding="16"
+                               HasShadow="True"
+                               Margin="0,6">
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="{Binding OtherPartyName}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#0E1626"/>
+                                <Label Text="{Binding Subject}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="14"
+                                       TextColor="#64748B"/>
+                                <Label Text="{Binding ScheduledTime, StringFormat='{0:MMM d, yyyy h:mm tt}'}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="12"
+                                       TextColor="#64748B"/>
+                                <HorizontalStackLayout Spacing="12">
+                                    <Button Text="Mark Complete"
+                                            IsVisible="{Binding IsTutorView}"
+                                            Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.CompleteCommand}"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="#0E1626"
+                                            TextColor="#FFFFFF"
+                                            CornerRadius="20"
+                                            FontFamily="Segoe UI"
+                                            FontAttributes="Bold"
+                                            HeightRequest="36"/>
+                                    <Button Text="Cancel"
+                                            Command="{Binding Source={x:Reference RootPage}, Path=BindingContext.StartCancelCommand}"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="Transparent"
+                                            TextColor="#D8121B"
+                                            BorderColor="#D8121B"
+                                            BorderWidth="2"
+                                            CornerRadius="20"
+                                            FontFamily="Segoe UI"
+                                            FontAttributes="Bold"
+                                            HeightRequest="36"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <CollectionView ItemsSource="{Binding CancelledSessions}" IsVisible="{Binding IsCancelledTabActive}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:SessionDisplay">
-                    <Frame Padding="12" Margin="0,4" CornerRadius="10" HasShadow="False" BorderColor="LightGray">
-                        <VerticalStackLayout Spacing="4">
-                            <Label Text="{Binding OtherPartyName}" FontAttributes="Bold" />
-                            <Label Text="{Binding Subject}" />
-                            <Label Text="{Binding ScheduledTime, StringFormat='{0:MMM d, yyyy h:mm tt}'}" FontSize="12" TextColor="Gray" />
-                            <Label Text="Cancelled" FontSize="12" FontAttributes="Bold" TextColor="Red" />
-                            <Label Text="{Binding CancellationReason, StringFormat='Reason: {0}'}" TextColor="Red" FontSize="12" />
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <!-- Completed Sessions -->
+            <CollectionView ItemsSource="{Binding CompletedSessions}" IsVisible="{Binding IsCompletedTabActive}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="14"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:SessionDisplay">
+                        <Frame BackgroundColor="#FFFFFF"
+                               BorderColor="#E2E8F0"
+                               CornerRadius="12"
+                               Padding="16"
+                               HasShadow="True"
+                               Margin="0,6">
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="{Binding OtherPartyName}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#0E1626"/>
+                                <Label Text="{Binding Subject}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="14"
+                                       TextColor="#64748B"/>
+                                <Label Text="{Binding ScheduledTime, StringFormat='{0:MMM d, yyyy h:mm tt}'}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="12"
+                                       TextColor="#64748B"/>
+                                <Label Text="Completed"
+                                       FontFamily="Segoe UI"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#0E1626"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <Frame IsVisible="{Binding IsCancelPromptVisible}" Padding="14" CornerRadius="10" BackgroundColor="#FFF3F3">
-            <VerticalStackLayout Spacing="8">
-                <Label Text="Reason for cancelling" FontAttributes="Bold" />
-                <Entry Placeholder="Explain why you're cancelling" Text="{Binding CancelReasonText}" />
-                <HorizontalStackLayout Spacing="10">
-                    <Button Text="Confirm Cancel" Command="{Binding ConfirmCancelCommand}" />
-                    <Button Text="Cancel" Command="{Binding CancelCancelCommand}" />
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
-        </Frame>
+            <!-- Cancelled Sessions -->
+            <CollectionView ItemsSource="{Binding CancelledSessions}" IsVisible="{Binding IsCancelledTabActive}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="14"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:SessionDisplay">
+                        <Frame BackgroundColor="#FFFFFF"
+                               BorderColor="#E2E8F0"
+                               CornerRadius="12"
+                               Padding="16"
+                               HasShadow="True"
+                               Margin="0,6">
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="{Binding OtherPartyName}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#0E1626"/>
+                                <Label Text="{Binding Subject}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="14"
+                                       TextColor="#64748B"/>
+                                <Label Text="{Binding ScheduledTime, StringFormat='{0:MMM d, yyyy h:mm tt}'}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="12"
+                                       TextColor="#64748B"/>
+                                <Label Text="Cancelled"
+                                       FontFamily="Segoe UI"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#D8121B"/>
+                                <Label Text="{Binding CancellationReason, StringFormat='Reason: {0}'}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="12"
+                                       TextColor="#D8121B"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-    </VerticalStackLayout>
+            <!-- Cancel Prompt -->
+            <Frame IsVisible="{Binding IsCancelPromptVisible}"
+                   BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="16"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Reason for cancelling"
+                           FontFamily="Segoe UI"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#0E1626"/>
+                    <Entry Placeholder="Explain why you're cancelling"
+                           Text="{Binding CancelReasonText}"
+                           FontFamily="Segoe UI"
+                           TextColor="#0E1626"
+                           PlaceholderColor="#64748B"/>
+                    <HorizontalStackLayout Spacing="12">
+                        <Button Text="Confirm Cancel"
+                                Command="{Binding ConfirmCancelCommand}"
+                                BackgroundColor="#D8121B"
+                                TextColor="#FFFFFF"
+                                CornerRadius="20"
+                                FontFamily="Segoe UI"
+                                FontAttributes="Bold"
+                                HeightRequest="40"/>
+                        <Button Text="Cancel"
+                                Command="{Binding CancelCancelCommand}"
+                                BackgroundColor="Transparent"
+                                TextColor="#0E1626"
+                                BorderColor="#0E1626"
+                                BorderWidth="2"
+                                CornerRadius="20"
+                                FontFamily="Segoe UI"
+                                FontAttributes="Bold"
+                                HeightRequest="40"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

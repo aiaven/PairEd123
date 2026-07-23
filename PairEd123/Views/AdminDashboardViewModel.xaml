@@ -1,13 +1,83 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PairEd123.Views.AdminDashboardPage"
-             Title="Admin Dashboard">
-    <VerticalStackLayout Padding="24" Spacing="16" VerticalOptions="Center">
-        <Label Text="{Binding Greeting}" FontSize="22" HorizontalOptions="Center" />
-        <Button Text="Manage Users" Command="{Binding GoToManageUsersCommand}" />
-        <Button Text="Manage Skills" Command="{Binding GoToManageSkillsCommand}" />
-        <Button Text="Reports" Command="{Binding GoToReportsCommand}" />
-        <Button Text="Log Out" Command="{Binding LogoutCommand}"
-                BackgroundColor="Transparent" TextColor="Red" />
-    </VerticalStackLayout>
+             Title="Admin Dashboard"
+             BackgroundColor="#F8FAFC">
+
+    <ScrollView>
+        <Grid Padding="24" RowSpacing="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Greeting -->
+            <Frame Grid.Row="0"
+                   BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="20"
+                   HasShadow="True">
+                <Label Text="{Binding Greeting}"
+                       FontFamily="Segoe UI"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="#0E1626"
+                       HorizontalOptions="Center"/>
+            </Frame>
+
+            <!-- Manage Users -->
+            <Button Grid.Row="1"
+                    x:Name="ManageUsersBtn"
+                    Text="Manage Users"
+                    Command="{Binding GoToManageUsersCommand}"
+                    BackgroundColor="#D8121B"
+                    TextColor="#FFFFFF"
+                    CornerRadius="20"
+                    FontFamily="Segoe UI"
+                    FontAttributes="Bold"
+                    HeightRequest="48"/>
+
+            <!-- Manage Skills -->
+            <Button Grid.Row="2"
+                    x:Name="ManageSkillsBtn"
+                    Text="Manage Skills"
+                    Command="{Binding GoToManageSkillsCommand}"
+                    BackgroundColor="#0E1626"
+                    TextColor="#FFFFFF"
+                    CornerRadius="20"
+                    FontFamily="Segoe UI"
+                    FontAttributes="Bold"
+                    HeightRequest="48"/>
+
+            <!-- Reports -->
+            <Button Grid.Row="3"
+                    x:Name="ReportsBtn"
+                    Text="Reports"
+                    Command="{Binding GoToReportsCommand}"
+                    BackgroundColor="#D8121B"
+                    TextColor="#FFFFFF"
+                    CornerRadius="20"
+                    FontFamily="Segoe UI"
+                    FontAttributes="Bold"
+                    HeightRequest="48"/>
+
+            <!-- Log Out -->
+            <Button Grid.Row="4"
+                    x:Name="LogoutBtn"
+                    Text="Log Out"
+                    Command="{Binding LogoutCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="#D8121B"
+                    BorderColor="#D8121B"
+                    BorderWidth="2"
+                    CornerRadius="20"
+                    FontFamily="Segoe UI"
+                    FontAttributes="Bold"
+                    HeightRequest="48"/>
+        </Grid>
+    </ScrollView>
 </ContentPage>

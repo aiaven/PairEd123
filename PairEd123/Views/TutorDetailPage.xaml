@@ -4,18 +4,99 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    Title="Tutor Profile">
-    <VerticalStackLayout Padding="24" Spacing="14">
-        <Label Text="{Binding TutorName}" FontSize="22" FontAttributes="Bold" />
-        <Label Text="Skill" FontAttributes="Bold" />
-        <Picker ItemsSource="{Binding SkillNames}" SelectedItem="{Binding SelectedSkill}" />
-        <Label Text="Preferred Date" FontAttributes="Bold" />
-        <DatePicker Date="{Binding PreferredDate}" MinimumDate="{x:Static sys:DateTime.Today}" />
-        <Label Text="Preferred Time" FontAttributes="Bold" />
-        <TimePicker Time="{Binding PreferredTime}" />
-        <Button Text="Send Request" Command="{Binding SendRequestCommand}" />
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-        <Label Text="{Binding StatusMessage}" TextColor="Red" HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    Title="Tutor Profile"
+    BackgroundColor="#F8FAFC">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
+
+            <!-- Tutor Name -->
+            <Label Text="{Binding TutorName}"
+                   FontFamily="Segoe UI"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#0E1626"
+                   HorizontalOptions="Center"/>
+
+            <!-- Skill Picker -->
+            <Frame BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Skill"
+                           FontFamily="Segoe UI"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#0E1626"/>
+                    <Picker ItemsSource="{Binding SkillNames}"
+                            SelectedItem="{Binding SelectedSkill}"
+                            FontFamily="Segoe UI"
+                            TextColor="#0E1626"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Preferred Date -->
+            <Frame BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Preferred Date"
+                           FontFamily="Segoe UI"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#0E1626"/>
+                    <DatePicker Date="{Binding PreferredDate}"
+                                MinimumDate="{x:Static sys:DateTime.Today}"
+                                FontFamily="Segoe UI"
+                                TextColor="#0E1626"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Preferred Time -->
+            <Frame BackgroundColor="#FFFFFF"
+                   BorderColor="#E2E8F0"
+                   CornerRadius="12"
+                   Padding="12"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Preferred Time"
+                           FontFamily="Segoe UI"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#0E1626"/>
+                    <TimePicker Time="{Binding PreferredTime}"
+                                FontFamily="Segoe UI"
+                                TextColor="#0E1626"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Send Request Button -->
+            <Button x:Name="SendRequestBtn"
+                    Text="Send Request"
+                    Command="{Binding SendRequestCommand}"
+                    BackgroundColor="#D8121B"
+                    TextColor="#FFFFFF"
+                    CornerRadius="20"
+                    FontFamily="Segoe UI"
+                    FontAttributes="Bold"
+                    HeightRequest="48"/>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="#D8121B"
+                               HorizontalOptions="Center"/>
+
+            <!-- Status Message -->
+            <Label Text="{Binding StatusMessage}"
+                   FontFamily="Segoe UI"
+                   TextColor="#D8121B"
+                   FontSize="14"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
-    
